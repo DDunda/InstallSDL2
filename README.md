@@ -34,6 +34,7 @@ Keeping variables in mind, I would recommend following [this guide](https://then
 When compiling with VS under these conditions, your executable can run because the necessary dlls needed to run are included in the debug environment (the guide linked under "Linking SDL for VS projects" covers how to change your debug environment). If you wish to use your executable outside of that environment, however, you must copy the necessary dlls (SDL2.dll + additional dlls (i.e. SDL2_image.dll)) from your libraries to your executable's directory.
 
 To copy on every build, you can set dlls to be automatically copied with the Post-Build Event. You can copy dlls like so (this example in particular copies from SDL, SDL_image, and SDL_mixer):
+
 ![Set your Post-Build Event in Properties>Configuration Properties>Build Events>Post-Build Event>Command Line](https://user-images.githubusercontent.com/50138952/113514420-cca44600-95b1-11eb-9afc-b60de95b2fdd.png)
 
 (Here's the command so you can copy it: `copy "$(SDL)\lib\$(PlatformShortName)\*.dll" "$(OutDir)"&copy "$(SDL_image)\lib\$(PlatformShortName)\*.dll" "$(OutDir)"&copy "$(SDL_mixer)\lib\$(PlatformShortName)\*.dll" "$(OutDir)"`)
