@@ -31,6 +31,9 @@ When linking, you should instead make use of your environment variables. In the 
 Keeping variables in mind, I would recommend following [this guide](https://thenumbat.github.io/cpp-course/sdl2/01/vsSetup.html) to link the resources to your project.
 
 ## Creating a standalone executable
-When compiling with VS under these conditions, your executable can run because the necessary dlls needed to run are included in the debug environment (the guide linked under "Linking SDL for VS projects" covers how to change your debug environment). If you want to use your executable outside of that environment, however, you must copy the necessary dlls from your libraries to your executable's directory.
+When compiling with VS under these conditions, your executable can run because the necessary dlls needed to run are included in the debug environment (the guide linked under "Linking SDL for VS projects" covers how to change your debug environment). If you wish to use your executable outside of that environment, however, you must copy the necessary dlls (SDL2.dll + additional dlls (i.e. SDL2_image.dll)) from your libraries to your executable's directory.
 
-You can do this by hand easily by simply navigating to your library, into lib, and then into your platform. You will always need SDL2.dll, and you may need additional ones to suit your libraries (such as SDL2_image.dll for SDL_image). If you want to copy on every build, you can set dlls to be copied by Visual Studio. To use environment variables for the path, however, you will need to modify the .vcxproj.filters and .vcxproj files directly (with notepad, for example).
+To copy on every build, you can set dlls to be automatically copied with the Post-Build Event. You can copy dlls like so (this example in particular copies from SDL, SDL_image, and SDL_mixer):
+![Set your Post-Build Event in Properties>Configuration Properties>Build Events>Post-Build Event>Command Line](https://user-images.githubusercontent.com/50138952/113514420-cca44600-95b1-11eb-9afc-b60de95b2fdd.png)
+
+(Here's the command so you can copy it: `copy "$(SDL)\lib\$(PlatformShortName)\*.dll" "$(OutDir)"&copy "$(SDL_image)\lib\$(PlatformShortName)\*.dll" "$(OutDir)"&copy "$(SDL_mixer)\lib\$(PlatformShortName)\*.dll" "$(OutDir)"`)
